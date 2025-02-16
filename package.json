@@ -1,0 +1,20 @@
+{
+  "name": "trx-javascript",
+  "version": "1.0.20250202",
+  "description": "diffusion streamline formats in javascript",
+  "type": "module",
+  "scripts": {
+    "postinstall": "npm install gl-matrix",
+    "build": "tsc",
+    "precli": "npm run build",
+    "cli": "node bench.mjs dpsv.trx",
+    "bench": "node bench.mjs IFOF_L.tt.gz -s; node bench.mjs IFOF_L32z.trx -s; node bench.mjs IFOF_L16z.trx -s; node bench.mjs IFOF_L.tt -s; node bench.mjs IFOF_L.vtk -s; node bench.mjs IFOF_L.trk -s; node bench.mjs IFOF_L.tck -s; node bench.mjs IFOF_L16.trx -s; node bench.mjs IFOF_L32.trx -s",
+    "pretty": "prettier --write \"**/*.{js,ts,mjs}\""
+  },
+  "dependencies": {
+    "gl-matrix": "^3.4.3"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.3"
+  }
+}
