@@ -58,7 +58,7 @@ $ npm install
 $ node run cli
 $ wget --content-disposition https://osf.io/dq374/download
 $ unzip IFOF_L.zip
-$ node run bench
+$ npm run bench
 ```
 The graph below shows the time load the [left inferior fronto-occipital fasciculus (IFOF) ](https://brain.labsolver.org/hcp_trk_atlas.html) from the HCP1065 Population-Averaged Tractography Atlas (Yeh, 2022). This has with 21209 streamlines and 4915166 vertices. The different formats are generated with the [tff_convert_tractogram.py](https://github.com/tee-ar-ex/trx-python) script. The benchmark was run on a MacBook Air M2 laptop. The ideal format would be both fast to load (to the left on the horizontal axis) and have a small file size (toward the bottom in the right axis). However, compression typically trades load time for file size. Here all data is loaded from a local solid state drive, whereas smaller files would benefit if data was loaded using a slow internet connection. The following file formats are illustrated (except where noted, both positions and indices are stored with 32-bit precision):
 
