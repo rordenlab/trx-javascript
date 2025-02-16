@@ -434,8 +434,7 @@ export async function readTT(buffer: ArrayBuffer): Promise<TT> {
     const dv = new DataView(track.buffer)
     const pos = []
     let nvert3 = 0
-    let i = 0
-    while (i < track.length) {
+    for (let i = 0; i < track.length; ) {
       pos.push(i)
       const newpts = dv.getUint32(i, true)
       i = i + newpts + 13
@@ -467,13 +466,13 @@ export async function readTT(buffer: ArrayBuffer): Promise<TT> {
     for (let i = 0; i < npt; i++) {
       pts[i] = pts[i] / 32.0
     }
-    let v = 0
-    for (let i = 0; i < npt / 3; i++) {
-      const pos = vec4.fromValues(pts[v], pts[v + 1], pts[v + 2], 1)
-      vec4.transformMat4(pos, pos, trans_to_mni)
-      pts[v++] = pos[0]
-      pts[v++] = pos[1]
-      pts[v++] = pos[2]
+    for (let v = 0; v < npt; v += 3) {
+      const x = pts[v],
+        y = pts[v + 1],
+        z = pts[v + 2]
+      pts[v] = trans_to_mni[0] * x + trans_to_mni[4] * y + trans_to_mni[8] * z + trans_to_mni[12]
+      pts[v + 1] = trans_to_mni[1] * x + trans_to_mni[5] * y + trans_to_mni[9] * z + trans_to_mni[13]
+      pts[v + 2] = trans_to_mni[2] * x + trans_to_mni[6] * y + trans_to_mni[10] * z + trans_to_mni[14]
     }
     offsetPt0[pos.length] = npt / 3 // solve fence post problem, offset for final streamline
   } // parse_tt()
